@@ -8,6 +8,25 @@ import (
 	"github.com/eventmodeling/workshop-warsaw/register/app/feedback"
 )
 
+type FeedbackSection struct {
+    Name string
+    Slug string
+}
+
+type getFeedback struct {
+}
+
+func (h getFeedback) Handle(w http.ResponseWriter, r *http.Request) {
+	data := []FeedbackSection{
+	    {"What's your opinion on shop cleanest?", "cleanest"},
+	    {"What's your overal experience with the shop?", "exp"},
+	    {"How easy was to find required goods?", "find"},
+	}
+
+	tpl := renderTemplate("feedback", data)
+	tpl(w, r)
+}
+
 type postFeedback struct {
 	Handler feedback.FeedbackHandler
 }
