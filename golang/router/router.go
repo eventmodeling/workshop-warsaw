@@ -15,10 +15,10 @@ func NewRouter(
 	feedbackHandler feedback.FeedbackHandler,
 ) chi.Router {
 	r := chi.NewRouter()
-	r.Get("/register", renderTemplate("register"))
+	r.Get("/register", renderTemplate("register", nil))
 	r.Post("/register", postRegister{Handler: registerHandler}.Handle)
 
-	r.Get("/feedback", renderTemplate("feedback"))
+	r.Get("/feedback", getFeedback{}.Handle)
 	r.Post("/feedback", postFeedback{Handler: feedbackHandler}.Handle)
 
 	workDir, _ := os.Getwd()
