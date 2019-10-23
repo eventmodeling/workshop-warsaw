@@ -3,7 +3,6 @@ package register
 import "github.com/pkg/errors"
 
 var (
-	ErrCursorEnd       = errors.New("end of cursor")
 	ErrNoMatchesByName = errors.New("no matches by name")
 )
 
@@ -16,7 +15,10 @@ type eventsReader interface {
 }
 
 type EventsCursor interface {
+	// Len returns the length of the cursor.
 	Len() int
+	// Next bumps the iterator and returns false if there is no more events
 	Next() bool
+	// Unmarshal unmarshals the current event on the given structure.
 	Unmarshal(val interface{}) error
 }
