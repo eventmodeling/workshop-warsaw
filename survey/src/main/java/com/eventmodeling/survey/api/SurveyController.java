@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class SurveyController {
 
-    @GetMapping("/survey")
+    @GetMapping("/")
     public String survey(){
         return "<!DOCTYPE html>\n" +
                 "<html>\n" +
