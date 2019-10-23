@@ -7,6 +7,7 @@ type Register struct {
 }
 
 type UserRegistered struct {
+	Name  string `json:"name"`
 	Email string `json:"email"`
 }
 
@@ -20,6 +21,7 @@ type RegisterHandler struct {
 
 func (h RegisterHandler) Execute(cmd Register) error {
 	event := UserRegistered{
+		Name:  cmd.Name,
 		Email: cmd.Email,
 	}
 

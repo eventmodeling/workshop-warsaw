@@ -57,7 +57,6 @@ func (h postRegister) Handle(w http.ResponseWriter, r *http.Request) {
 }
 
 func parseRegisterData(r *http.Request) (registerData, error) {
-	err := r.ParseForm()
 	name := r.PostForm.Get("name")
 	password := r.PostForm.Get("password")
 	email := r.PostForm.Get("email")
