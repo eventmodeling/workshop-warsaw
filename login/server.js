@@ -1,20 +1,18 @@
 'use strict';
-
+const path = require('path');
 const express = require('express');
 
-// Constants
 const PORT = 8080;
 const HOST = '0.0.0.0';
 
-// App
 const app = express();
 
-app.get('/websiteLogin', (req, res) => {
-    res.send('login website\n');
-});
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-    res.send('We are in root\n');
+app.get('/websiteLogin', (req, res) => {
+    const body = req.body;
+    console.log(JSON.stringify(body));
+    res.sendFile(path.join(__dirname + '/views/template.html'));
 });
 
 app.listen(PORT, HOST);
