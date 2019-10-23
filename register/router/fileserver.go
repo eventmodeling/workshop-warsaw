@@ -2,8 +2,6 @@ package router
 
 import (
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/go-chi/chi"
