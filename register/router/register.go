@@ -1,19 +1,23 @@
 package router
 
 import (
-	app "github.com/eventmodeling/workshop-warsaw/register/app/register"
 	"net/http"
+
+	app "github.com/eventmodeling/workshop-warsaw/register/app/register"
 )
 
 func getRegister(w http.ResponseWriter, r *http.Request) {
 }
 
-func postRegister(w http.ResponseWriter, r *http.Request) {
+type postRegister struct {
+	Handler app.RegisterHandler
+}
+
+func (h postRegister) Handle(w http.ResponseWriter, r *http.Request) {
 	// parse cmd from request
 	cmd := app.Register{}
-	h := app.RegisterHandler{}
 
-	err := h.Execute(cmd)
+	err := h.Handler.Execute(cmd)
 	if err != nil {
 		_, _ = w.Write([]byte(err.Error()))
 		return
