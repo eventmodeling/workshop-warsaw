@@ -3,7 +3,9 @@ services:
   router:
     build: ./router
     ports:
-      - "49160:8080"
+      - "8080:8080"
+    depends_on:
+      - login
   login:
     build: ./login
     ports:
