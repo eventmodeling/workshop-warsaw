@@ -4,15 +4,16 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/eventmodeling/workshop-warsaw/register/infrastructure/events"
+
 	"github.com/eventmodeling/workshop-warsaw/register/app/register"
-	"github.com/eventmodeling/workshop-warsaw/register/infrastructure"
 	"github.com/eventmodeling/workshop-warsaw/register/router"
 )
 
 const eventsDirectory = "/events"
 
 func main() {
-	publisher := infrastructure.EventPublisher{eventsDirectory}
+	publisher := events.Publisher{eventsDirectory}
 
 	registerHandler := register.RegisterHandler{
 		Publisher: publisher,
