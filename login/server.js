@@ -10,7 +10,6 @@ const HOST = '0.0.0.0';
 
 const app = express();
 app.use(bodyParser.json());
-// in latest body-parser use like below.
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(path.join(__dirname, 'public')));
