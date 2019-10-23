@@ -1,0 +1,10 @@
+version: '3'
+services:
+  router:
+    build: ./router
+    ports:
+      - "49160:8080"
+  login:
+    build: ./login
+    ports:
+      - "8010:8080"
