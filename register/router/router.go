@@ -6,7 +6,8 @@ import (
 
 func NewRouter() chi.Router {
 	r := chi.NewRouter()
-	r.Post("/register", register)
+	r.Get("/register", getRegister)
+	r.Post("/register", postRegister)
 
 	return r
 }
