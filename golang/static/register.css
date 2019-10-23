@@ -85,5 +85,24 @@
   color: #EF3B3A;
 }
 
+.success {
+  display: none;
+  background-color: #43A047;
+  height: 64px;
+}
+
+.error {
+  display: none;
+  background-color: #EF3B3A;
+  height: 64px;
+}
+
+p.response {
+  color: white;
+  top: 50%;
+  position: relative;
+  transform: translateY(-50%);
+}
+
 body {  
 }
