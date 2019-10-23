@@ -1,23 +1,64 @@
 package router
 
 import (
-	app "github.com/eventmodeling/workshop-warsaw/register/app/register"
+	"errors"
 	"net/http"
+
+	app "github.com/eventmodeling/workshop-warsaw/register/app/register"
 )
+
+type registerData struct {
+	name     string
+	password string
+	email    string
+}
 
 func getRegister(w http.ResponseWriter, r *http.Request) {
 }
 
 func postRegister(w http.ResponseWriter, r *http.Request) {
+	data, err := parseRegisterData(r)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(err.Error()))
+		return
+	}
 	// parse cmd from request
-	cmd := app.Register{}
+	cmd := app.Register{
+		Name:     data.name,
+		Email:    data.email,
+		Password: data.password,
+	}
 	h := app.RegisterHandler{}
 
-	err := h.Execute(cmd)
+	err = h.Execute(cmd)
 	if err != nil {
 		_, _ = w.Write([]byte(err.Error()))
 		return
 	}
 
 	_, _ = w.Write([]byte("success"))
+}
+
+func parseRegisterData(r *http.Request) (registerData, error) {
+	err := r.ParseForm()
+	name := r.PostForm.Get("name")
+	password := r.PostForm.Get("password")
+	email := r.PostForm.Get("email")
+
+	if name == "" {
+		return registerData{}, errors.New("name is empty")
+	}
+	if password == "" {
+		return registerData{}, errors.New("password is empty")
+	}
+	if email == "" {
+		return registerData{}, errors.New("email is empty")
+	}
+
+	return registerData{
+		name:     name,
+		password: password,
+		email:    email,
+	}, nil
 }
