@@ -9,5 +9,9 @@ func NewRouter() chi.Router {
 	r.Get("/register", getRegister)
 	r.Post("/register", postRegister)
 
+	workDir, _ := os.Getwd()
+	filesDir := filepath.Join(workDir, "static")
+	FileServer(r, "/static", http.Dir(filesDir))	
+	
 	return r
 }
