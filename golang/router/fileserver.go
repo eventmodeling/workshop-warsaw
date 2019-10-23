@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/chi"
 )
 
-func renderTemplate(name string) func(w http.ResponseWriter, r *http.Request) {
+func renderTemplate(name string, params interface{}) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
 		tmpl, err := template.ParseFiles(fmt.Sprintf("templates/%s.html", name))
 		if err != nil {
@@ -18,7 +18,7 @@ func renderTemplate(name string) func(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		err = tmpl.Execute(w, nil)
+		err = tmpl.Execute(w, params)
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			_, _ = w.Write([]byte(err.Error()))
