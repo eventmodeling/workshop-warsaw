@@ -24,7 +24,8 @@ func NewRouter(
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "static")
 
-	FileServer(r, "/static", http.Dir(filesDir))
+	FileServer(r, "/register/static", http.Dir(filesDir))
+	FileServer(r, "/feedback/static", http.Dir(filesDir))
 
 	return r
 }
