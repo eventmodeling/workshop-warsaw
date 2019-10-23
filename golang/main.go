@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/eventmodeling/workshop-warsaw/register/app/feedback"
-	"github.com/eventmodeling/workshop-warsaw/register/infrastructure/events"
 	"github.com/eventmodeling/workshop-warsaw/register/app/register"
+	"github.com/eventmodeling/workshop-warsaw/register/infrastructure/events"
 	"github.com/eventmodeling/workshop-warsaw/register/router"
 )
 
@@ -21,7 +21,9 @@ func main() {
 		EventsReader: eventsReader,
 	}
 
-	feedbackHandler := feedback.FeedbackHandler{}
+	feedbackHandler := feedback.FeedbackHandler{
+		Publisher: publisher,
+	}
 
 	r := router.NewRouter(registerHandler, feedbackHandler)
 	log.Print("Running registration server")
