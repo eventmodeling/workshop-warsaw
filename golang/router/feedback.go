@@ -18,9 +18,10 @@ type getFeedback struct {
 
 func (h getFeedback) Handle(w http.ResponseWriter, r *http.Request) {
 	data := []FeedbackSection{
-	    {"What's your opinion on shop cleanest?", "cleanest"},
-	    {"What's your overal experience with the shop?", "exp"},
-	    {"How easy was to find required goods?", "find"},
+	    {"What's your opinion on shop cleanest?", "cleanliness"},
+	    {"What's your overal experience with the shop?", "experience"},
+	    {"How big was the queue in the shop?", "queue"},		
+	    {"How easy was to find required goods?", "easy_to_find"},
 	}
 
 	tpl := renderTemplate("feedback", data)
