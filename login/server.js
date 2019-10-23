@@ -8,16 +8,13 @@ const HOST = '0.0.0.0';
 
 // App
 const app = express();
+
+app.get('/websiteLogin', (req, res) => {
+    res.send('login website\n');
+});
+
 app.get('/', (req, res) => {
-    res.send('Hello world root\n');
-});
-
-app.get('/hello', (req, res) => {
-    res.send('hello\n');
-});
-
-app.get('/hello2', (req, res) => {
-    res.send('jesteśmy gdzie indziej\n');
+    res.send('We are in root\n');
 });
 
 app.listen(PORT, HOST);
