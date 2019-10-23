@@ -12,6 +12,11 @@ services:
     build: ./login
     ports:
       - "8010:8080"
+  
+  scan-receipt:
+    build: ./scan-receipt
+    ports:
+      - "8013:8080"
     volumes:
       - ./events:/events
   golang:
@@ -29,3 +34,4 @@ services:
       - "8012:8080"
     volumes:
       - ./events:/events
+
