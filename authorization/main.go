@@ -1,14 +1,16 @@
 package main
 
 import (
+	"github.com/eventmodeling/workshop-warsaw/authorization/router"
+	"log"
 	"net/http"
-	"github.com/go-chi/chi"
 )
 
 func main() {
-	r := chi.NewRouter()
-	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("welcome"))
-	})
-	http.ListenAndServe(":80", r)
+	r := router.NewRouter()
+	err := http.ListenAndServe(":80", r)
+
+	if err != nil {
+		log.Fatalf("Server exited with error: %+v", err)
+	}
 }
