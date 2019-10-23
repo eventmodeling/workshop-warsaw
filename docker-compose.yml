@@ -16,7 +16,7 @@ services:
   scan-receipt:
     build: ./scan-receipt
     ports:
-      - "8011:8080"
+      - "8013:8080"
     volumes:
       - ./events:/events
   register:
