@@ -2,30 +2,14 @@ package router
 
 import (
 	"errors"
-	"net/http"
-	"text/template"
-
 	app "github.com/eventmodeling/workshop-warsaw/register/app/register"
+	"net/http"
 )
 
 type registerData struct {
 	name     string
 	password string
 	email    string
-}
-
-func getRegister(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("template.html")
-
-	if err != nil {
-		panic(err)
-	}
-
-	err = tmpl.Execute(w, nil)
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		_, _ = w.Write([]byte(err.Error()))
-	}
 }
 
 type postRegister struct {
