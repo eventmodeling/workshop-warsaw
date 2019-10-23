@@ -8,7 +8,7 @@ services:
     build: ./login
     ports:
       - "8010:8080"
-  authorization:
-    build: ./authorization
+  register:
+    build: ./register
     ports:
-      - "8011:8080"
+      - "8011:80"
