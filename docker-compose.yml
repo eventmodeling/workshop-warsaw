@@ -8,3 +8,7 @@ services:
     build: ./login
     ports:
       - "8010:8080"
+  scan-receipt:
+    build: ./scan-receipt
+    ports:
+      - "8011:8080"
