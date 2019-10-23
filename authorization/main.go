@@ -8,6 +8,8 @@ import (
 
 func main() {
 	r := router.NewRouter()
+	log.Print("Running authorization server")
+
 	err := http.ListenAndServe(":80", r)
 
 	if err != nil {

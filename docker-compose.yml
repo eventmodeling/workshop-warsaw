@@ -8,3 +8,7 @@ services:
     build: ./login
     ports:
       - "8010:8080"
+  authorization:
+    build: ./authorization
+    ports:
+      - "8011:8080"
