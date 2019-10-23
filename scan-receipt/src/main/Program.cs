@@ -20,6 +20,7 @@ namespace main
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .UseKestrel()
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .UseUrls("http://*:8080");
     }
 }
