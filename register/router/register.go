@@ -28,22 +28,25 @@ func getRegister(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func postRegister(w http.ResponseWriter, r *http.Request) {
+type postRegister struct {
+	Handler app.RegisterHandler
+}
+
+func (h postRegister) Handle(w http.ResponseWriter, r *http.Request) {
 	data, err := parseRegisterData(r)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(err.Error()))
 		return
 	}
+
 	// parse cmd from request
 	cmd := app.Register{
 		Name:     data.name,
 		Email:    data.email,
 		Password: data.password,
 	}
-	h := app.RegisterHandler{}
-
-	err = h.Execute(cmd)
+	err = h.Handler.Execute(cmd)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		_, _ = w.Write([]byte(err.Error()))
@@ -55,6 +58,10 @@ func postRegister(w http.ResponseWriter, r *http.Request) {
 
 func parseRegisterData(r *http.Request) (registerData, error) {
 	err := r.ParseForm()
+	if err != nil {
+		return registerData{}, err
+	}
+
 	name := r.PostForm.Get("name")
 	password := r.PostForm.Get("password")
 	email := r.PostForm.Get("email")

@@ -6,11 +6,17 @@ services:
       - "8080:8080"
     depends_on:
       - login
+    volumes:
+      - ./events:/events
   login:
     build: ./login
     ports:
       - "8010:8080"
+    volumes:
+      - ./events:/events
   register:
     build: ./register
     ports:
       - "8011:80"
+    volumes:
+      - ./events:/events
