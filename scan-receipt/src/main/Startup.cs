@@ -1,4 +1,5 @@
 
+using main.EventBus;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,8 @@ namespace main
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+
+            services.AddScoped<IEventBus, EventBus.EventBus>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
