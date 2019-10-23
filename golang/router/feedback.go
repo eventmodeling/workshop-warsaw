@@ -1,6 +1,7 @@
 package router
 
 import (
+	"errors"
 	"log"
 	"net/http"
 
@@ -35,7 +36,13 @@ func parseFeedbackData(r *http.Request) (feedback.Feedback, error) {
 		return feedback.Feedback{}, err
 	}
 
+	purchaseID := r.PostForm.Get("purchase_id")
+	if purchaseID == "" {
+		return feedback.Feedback{}, errors.New("missing purchase ID")
+	}
+
 	return feedback.Feedback{
+		PurchaseID:  purchaseID,
 		Cleanliness: levelFromRequest(r, "cleanliness"),
 		Experience:  levelFromRequest(r, "experience"),
 		Queue:       levelFromRequest(r, "queue"),

@@ -30,6 +30,7 @@ func NewLevel(name string) (Level, error) {
 }
 
 type Feedback struct {
+	PurchaseID  string
 	Cleanliness Level
 	Experience  Level
 	Queue       Level
@@ -43,6 +44,7 @@ type FeedbackHandler struct {
 
 func (h FeedbackHandler) Execute(cmd Feedback) error {
 	event := FeedbackSubmitted{
+		PurchaseID:  cmd.PurchaseID,
 		Cleanliness: cmd.Cleanliness.String(),
 		Experience:  cmd.Experience.String(),
 		Queue:       cmd.Queue.String(),

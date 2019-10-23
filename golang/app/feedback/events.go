@@ -1,6 +1,7 @@
 package feedback
 
 type FeedbackSubmitted struct {
+	PurchaseID  string `json:"purchase_id"`
 	Cleanliness string `json:"cleanliness"`
 	Experience  string `json:"experience"`
 	Queue       string `json:"queue"`
