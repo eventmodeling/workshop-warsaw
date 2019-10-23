@@ -1,11 +1,12 @@
 package router
 
 import (
+	"net/http"
+	"os"
+	"path/filepath"
+
 	"github.com/eventmodeling/workshop-warsaw/register/app/register"
 	"github.com/go-chi/chi"
-	"net/http"
-	"path/filepath"
-	"os"
 )
 
 func NewRouter(registerHandler register.RegisterHandler) chi.Router {
@@ -15,7 +16,8 @@ func NewRouter(registerHandler register.RegisterHandler) chi.Router {
 
 	workDir, _ := os.Getwd()
 	filesDir := filepath.Join(workDir, "static")
-	FileServer(r, "/static", http.Dir(filesDir))	
-	
+
+	FileServer(r, "/static", http.Dir(filesDir))
+
 	return r
 }
