@@ -33,6 +33,7 @@ func postRegister(w http.ResponseWriter, r *http.Request) {
 
 	err = h.Execute(cmd)
 	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
 		_, _ = w.Write([]byte(err.Error()))
 		return
 	}
