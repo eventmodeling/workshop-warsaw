@@ -2,11 +2,19 @@ package router
 
 import (
 	"net/http"
+	"text/template"
 
 	app "github.com/eventmodeling/workshop-warsaw/register/app/register"
 )
 
 func getRegister(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("template.html")
+
+	if err != nil {
+	    panic(err)
+	}
+
+	tmpl.Execute(w, nil)
 }
 
 type postRegister struct {
