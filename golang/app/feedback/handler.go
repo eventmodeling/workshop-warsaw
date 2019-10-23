@@ -11,19 +11,26 @@ func (l Level) String() string {
 }
 
 var (
-	LevelSad     = Level{"sad"}
-	LevelNeutral = Level{"neutral"}
-	LevelHappy   = Level{"happy"}
+	LevelAngry     		= Level{"angry"}
+	LevelSad     		= Level{"sad"}	
+	LevelNeutral 		= Level{"neutral"}
+	LevelHappy   		= Level{"happy"}
+	LevelExtraHappy     	= Level{"extra-happy"}
+	
 )
 
 func NewLevel(name string) (Level, error) {
 	switch name {
+	case "angry":
+		return LevelAngry, nil
 	case "sad":
 		return LevelSad, nil
 	case "neutral":
 		return LevelNeutral, nil
 	case "happy":
 		return LevelHappy, nil
+	case "extra-happy":
+		return LevelExtraHappy, nil		
 	}
 
 	return Level{}, errors.New("no such level: " + name)
