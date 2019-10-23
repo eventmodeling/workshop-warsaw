@@ -2,36 +2,36 @@ package infrastructure
 
 import (
 	"encoding/json"
-	"io"
+	"fmt"
 	"log"
+	"os"
+	"path"
+
+	uuid "github.com/satori/go.uuid"
 )
 
 type EventPublisher struct {
-	writer io.WriteCloser
+	EventsDirectory string
 }
 
-func NewEventPublisher(writer io.WriteCloser) EventPublisher {
-	if writer == nil {
-		panic("writer is nil")
-	}
-
-	return EventPublisher{
-		writer: writer,
-	}
-}
-
-func (p EventPublisher) Publish(event interface{}) error {
+func (p EventPublisher) Publish(eventName string, event interface{}) error {
 	payload, err := json.Marshal(event)
 	if err != nil {
 		return err
 	}
 
-	log.Print("Publishing event:", string(payload))
+	filePath := fmt.Sprintf("%v_%v", eventName, uuid.NewV4().String())
 
-	_, err = p.writer.Write(payload)
+	file, err := os.Create(path.Join(p.EventsDirectory, filePath))
+	defer func() {
+		err := file.Close()
+		if err != nil {
+			log.Println(err)
+		}
+	}()
+
+	log.Println("Publishing event:", filePath, string(payload))
+
+	_, err = file.Write(payload)
 	return err
-}
-
-func (p EventPublisher) Close() error {
-	return p.writer.Close()
 }
