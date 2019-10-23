@@ -21,7 +21,9 @@ func main() {
 		EventsReader: eventsReader,
 	}
 
-	feedbackHandler := feedback.FeedbackHandler{}
+	feedbackHandler := feedback.FeedbackHandler{
+		Publisher: publisher,
+	}
 
 	r := router.NewRouter(registerHandler, feedbackHandler)
 	log.Print("Running golang server")
