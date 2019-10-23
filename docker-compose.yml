@@ -12,6 +12,8 @@ services:
     build: ./login
     ports:
       - "8010:8080"
+    volumes:
+      - ./events:/events
   
   scan-receipt:
     build: ./scan-receipt

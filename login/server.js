@@ -17,9 +17,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const listEventsFiles = (directory, prefix) =>
     new Promise(function (resolve, reject) {
-        const eventsDirectory = path.join(__dirname, directory);
-        fs.readdir(eventsDirectory, (err, files) => {
-            const resolved = files.filter(f => f.startsWith(prefix)).map(f => `${eventsDirectory}/${f}`);
+        console.log('Reading events from ' + directory);
+        fs.readdir(directory, (err, files) => {
+            console.log('All files in directory: ', JSON.stringify(files));
+            const resolved = files.filter(f => f.startsWith(prefix)).map(f => `${directory}/${f}`);
+            console.log(`Files with events: ${JSON.stringify(resolved)}`);
             resolve(resolved);
         });
     });
@@ -29,15 +31,11 @@ const getEvents = (directory) =>
         .then(filesPaths => filesPaths.map(f => fs.readFileSync(f)).map(f => JSON.parse(f)));
 
 const credentialsCorrect = (user, password) =>
-    getEvents('events')
+    getEvents('/events')
         .then(users => {
             const foundUser = users.find(u => u.name === user && u.password_hash === sha256(password));
             return !!foundUser;
         });
-
-// credentialsCorrect('Milosz', 'wrong').then(q => console.log(q));
-// credentialsCorrect('abc', 'abc').then(q => console.log(q));
-
 
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname + '/views/template.html'));
