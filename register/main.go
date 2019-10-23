@@ -1,14 +1,15 @@
 package main
 
 import (
-	"github.com/eventmodeling/workshop-warsaw/authorization/router"
 	"log"
 	"net/http"
+
+	"github.com/eventmodeling/workshop-warsaw/register/router"
 )
 
 func main() {
 	r := router.NewRouter()
-	log.Print("Running authorization server")
+	log.Print("Running registration server")
 
 	err := http.ListenAndServe(":80", r)
 
