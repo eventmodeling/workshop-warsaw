@@ -3,6 +3,7 @@ package router
 import (
 	"errors"
 	"net/http"
+	"text/template"
 
 	app "github.com/eventmodeling/workshop-warsaw/register/app/register"
 )
@@ -14,6 +15,17 @@ type registerData struct {
 }
 
 func getRegister(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("template.html")
+
+	if err != nil {
+		panic(err)
+	}
+
+	err = tmpl.Execute(w, nil)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		_, _ = w.Write([]byte(err.Error()))
+	}
 }
 
 func postRegister(w http.ResponseWriter, r *http.Request) {
