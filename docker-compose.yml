@@ -8,3 +8,7 @@ services:
     build: ./login
     ports:
       - "8010:8080"
+  register:
+    build: ./register
+    ports:
+      - "8011:80"

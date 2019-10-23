@@ -1,7 +1,7 @@
 package router
 
 import (
-	app "github.com/eventmodeling/workshop-warsaw/authorization/app/register"
+	app "github.com/eventmodeling/workshop-warsaw/register/app/register"
 	"net/http"
 )
 
