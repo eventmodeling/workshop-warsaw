@@ -5,7 +5,10 @@ import (
 	"net/http"
 )
 
-func register(w http.ResponseWriter, r *http.Request) {
+func getRegister(w http.ResponseWriter, r *http.Request) {
+}
+
+func postRegister(w http.ResponseWriter, r *http.Request) {
 	// parse cmd from request
 	cmd := app.Register{}
 	h := app.RegisterHandler{}
