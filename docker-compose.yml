@@ -3,7 +3,7 @@ services:
   router:
     build: ./router
     ports:
-      - "49160:8080"
+      - "8080:8080"
   login:
     build: ./login
     ports:
