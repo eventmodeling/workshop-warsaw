@@ -1,14 +1,14 @@
 package router
 
 import (
-	app "github.com/eventmodeling/workshop-warsaw/authorization/app/login"
+	app "github.com/eventmodeling/workshop-warsaw/authorization/app/register"
 	"net/http"
 )
 
-func login(w http.ResponseWriter, r *http.Request) {
+func register(w http.ResponseWriter, r *http.Request) {
 	// parse cmd from request
-	cmd := app.Login{}
-	h := app.LoginHandler{}
+	cmd := app.Register{}
+	h := app.RegisterHandler{}
 
 	err := h.Execute(cmd)
 	if err != nil {
