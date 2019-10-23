@@ -1,4 +1,4 @@
-package infrastructure
+package events
 
 import (
 	"encoding/json"
@@ -10,11 +10,11 @@ import (
 	uuid "github.com/satori/go.uuid"
 )
 
-type EventPublisher struct {
+type Publisher struct {
 	EventsDirectory string
 }
 
-func (p EventPublisher) Publish(eventName string, event interface{}) error {
+func (p Publisher) Publish(eventName string, event interface{}) error {
 	payload, err := json.Marshal(event)
 	if err != nil {
 		return err
