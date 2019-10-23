@@ -3,6 +3,12 @@ package register
 import (
 	"crypto/sha256"
 	"fmt"
+
+	"github.com/pkg/errors"
+)
+
+var (
+	ErrUserAlreadyRegistered = errors.New("user already registered")
 )
 
 type Register struct {
@@ -11,18 +17,9 @@ type Register struct {
 	Password string
 }
 
-type UserRegistered struct {
-	Name         string `json:"name"`
-	Email        string `json:"email"`
-	PasswordHash string `json:"password_hash"`
-}
-
-type publisher interface {
-	Publish(eventName string, event interface{}) error
-}
-
 type RegisterHandler struct {
-	Publisher publisher
+	Publisher    publisher
+	EventsReader eventsReader
 }
 
 func (h RegisterHandler) Execute(cmd Register) error {
@@ -34,10 +31,43 @@ func (h RegisterHandler) Execute(cmd Register) error {
 		PasswordHash: fmt.Sprintf("%x", hash),
 	}
 
-	err := h.Publisher.Publish("UserRegistered", event)
+	// check prior registrations
+	registered, err := h.allRegistrations()
+	if err != nil {
+		return err
+	}
+	for _, reg := range registered {
+		if reg.Email == cmd.Email {
+			return ErrUserAlreadyRegistered
+		}
+	}
+
+	err = h.Publisher.Publish(UserRegisteredEventName, event)
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+func (h RegisterHandler) allRegistrations() ([]UserRegistered, error) {
+	cur, err := h.EventsReader.ByName(UserRegisteredEventName)
+	if errors.Cause(err) == ErrNoEventsByName {
+		return []UserRegistered{}, nil
+	}
+
+	ret := make([]UserRegistered, cur.Len())
+	for i := 0; ; i++ {
+		var event UserRegistered
+		err = cur.Unmarshal(&event)
+		if err != nil {
+			return nil, err
+		}
+		ret[i] = event
+
+		if !cur.Next() {
+			break
+		}
+	}
+	return ret, nil
 }
