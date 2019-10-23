@@ -1,11 +1,30 @@
 package router
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
+	"text/template"
 
 	"github.com/go-chi/chi"
 )
+
+func renderTemplate(name string) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		tmpl, err := template.ParseFiles(fmt.Sprintf("templates/%s.html", name))
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			_, _ = w.Write([]byte(err.Error()))
+			return
+		}
+
+		err = tmpl.Execute(w, nil)
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			_, _ = w.Write([]byte(err.Error()))
+		}
+	}
+}
 
 // FileServer conveniently sets up a http.FileServer handler to serve
 // static files from a http.FileSystem.
