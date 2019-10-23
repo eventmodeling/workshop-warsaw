@@ -4,11 +4,17 @@ services:
     build: ./router
     ports:
       - "49160:8080"
+    volumes:
+      - ./events:/events
   login:
     build: ./login
     ports:
       - "8010:8080"
+    volumes:
+      - ./events:/events
   register:
     build: ./register
     ports:
       - "8011:80"
+    volumes:
+      - ./events:/events
