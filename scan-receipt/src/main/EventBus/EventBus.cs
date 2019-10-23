@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace main.EventBus {
     internal class EventBus : IEventBus {
-        private static string EventFolder = "./bin/Debug/events/";
+        private static string EventFolder = "/events/";
 
         public EventBus() {
 
