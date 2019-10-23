@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.eventmodeling</groupId>
-    <artifactId>login</artifactId>
+    <artifactId>survey</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>login</name>
+    <name>survey</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
