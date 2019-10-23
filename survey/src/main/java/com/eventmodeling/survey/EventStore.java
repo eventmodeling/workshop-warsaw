@@ -1,6 +1,8 @@
 package com.eventmodeling.survey;
 
+import java.util.List;
+
 public interface EventStore {
-    DomainEvent load(String aggregateid);
+    List<DomainEvent> load(String aggregateid);
     void save(DomainEvent domainEvent);
 }

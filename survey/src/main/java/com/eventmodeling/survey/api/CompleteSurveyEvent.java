@@ -8,4 +8,5 @@ import lombok.Getter;
 @Getter
 public class CompleteSurveyEvent implements DomainEvent {
     private final String answer;
+
 }
