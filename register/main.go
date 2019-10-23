@@ -14,9 +14,11 @@ const eventsDirectory = "/events"
 
 func main() {
 	publisher := events.Publisher{eventsDirectory}
+	eventsReader := events.Reader{eventsDirectory}
 
 	registerHandler := register.RegisterHandler{
-		Publisher: publisher,
+		Publisher:    publisher,
+		EventsReader: eventsReader,
 	}
 
 	r := router.NewRouter(registerHandler)
