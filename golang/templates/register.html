@@ -3,17 +3,45 @@
 
 <link rel="stylesheet" media="screen" href="/static/register.css" />
 
-<body>
+<script type="text/javascript">
+  function sendRegister() {
+      name = document.getElementById("name").value;
+      password = document.getElementById("password").value;
+      email = document.getElementById("email").value;
+      xhr = new XMLHttpRequest();
 
+      xhr.open('POST', 'register');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          document.getElementById("success").style.display = 'block';
+          setTimeout(function () {
+            document.getElementById("success").style.display = 'none';
+          }, 2000)
+        }
+        else if (xhr.status !== 200) {
+          document.getElementById("error").style.display = 'block';
+          document.getElementById("error").value = xhr.responseText;
+          setTimeout(function () {
+            document.getElementById("error").style.display = 'none';
+          }, 2000)
+        }
+      };
+      xhr.send(encodeURI('name=' + name + '&password=' + password + '&email=' + email));
+  }
+</script>
+
+<body>
+  <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
   <div class="login-page">
     <div class="form">
-      <p class="success">Registered successfully</p>
-      <p class="success">Could not register: already registered!</p>
-      <form class="register-form" action="/register" method="post">
-        <input name="name" type="text" placeholder="name" />
-        <input name="password" type="password" placeholder="password" />
-        <input name="email" type="text" placeholder="email address" />
-        <button>create</button>
+      <div id="success" class="success"><p class="response">Registered successfully</p></div>
+      <div id="error" class="error"><p class="response">Could not register: already registered!</p></div>
+      <form class="register-form" target="dummyframe">
+        <input id="name" type="text" placeholder="name" />
+        <input id="password" type="password" placeholder="password" />
+        <input id="email" type="text" placeholder="email address" />
+        <button onclick="sendRegister()">create</button>
         <p class="message">Already registered? <a href="/login">Sign In</a></p>
       </form>
     </div>

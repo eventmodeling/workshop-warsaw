@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/eventmodeling/workshop-warsaw/register/app/feedback"
-	"github.com/eventmodeling/workshop-warsaw/register/infrastructure/events"
 	"github.com/eventmodeling/workshop-warsaw/register/app/register"
+	"github.com/eventmodeling/workshop-warsaw/register/infrastructure/events"
 	"github.com/eventmodeling/workshop-warsaw/register/router"
 )
 
@@ -24,7 +24,7 @@ func main() {
 	feedbackHandler := feedback.FeedbackHandler{}
 
 	r := router.NewRouter(registerHandler, feedbackHandler)
-	log.Print("Running registration server")
+	log.Print("Running golang server")
 
 	err := http.ListenAndServe(":80", r)
 	if err != nil {
