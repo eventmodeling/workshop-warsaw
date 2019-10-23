@@ -20,3 +20,9 @@ services:
       - "8011:80"
     volumes:
       - ./events:/events
+  survey:
+    build: ./survey
+    ports:
+      - "8012:8080"
+    volumes:
+      - ./events:/events
