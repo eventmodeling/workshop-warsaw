@@ -1,10 +1,10 @@
-package com.eventmodeling.login;
+package com.eventmodeling.survey;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LoginApplicationTests {
+class SurveyApplicationTests {
 
     @Test
     void contextLoads() {

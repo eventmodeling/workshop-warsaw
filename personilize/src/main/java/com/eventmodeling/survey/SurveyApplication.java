@@ -1,13 +1,13 @@
-package com.eventmodeling.login;
+package com.eventmodeling.survey;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LoginApplication {
+public class SurveyApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LoginApplication.class, args);
+        SpringApplication.run(SurveyApplication.class, args);
     }
 
 }
