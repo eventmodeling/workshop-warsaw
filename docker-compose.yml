@@ -14,14 +14,14 @@ services:
       - "8010:8080"
     volumes:
       - ./events:/events
-  register:
+  golang:
     image: golang:1.12
     command: go run /app/main.go
     working_dir: /app
     ports:
       - "8011:80"
     volumes:
-      - ./register:/app
+      - ./golang:/app
       - ./events:/events
   survey:
     build: ./survey
