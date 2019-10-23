@@ -3,12 +3,35 @@ services:
   router:
     build: ./router
     ports:
-      - "49160:8080"
+      - "8080:8080"
+    depends_on:
+      - login
+    volumes:
+      - ./events:/events
   login:
     build: ./login
     ports:
       - "8010:8080"
+  
   scan-receipt:
     build: ./scan-receipt
     ports:
       - "8011:8080"
+    volumes:
+      - ./events:/events
+  register:
+    image: golang:1.12
+    command: go run /app/main.go
+    working_dir: /app
+    ports:
+      - "8011:80"
+    volumes:
+      - ./register:/app
+      - ./events:/events
+  survey:
+    build: ./survey
+    ports:
+      - "8012:8080"
+    volumes:
+      - ./events:/events
+

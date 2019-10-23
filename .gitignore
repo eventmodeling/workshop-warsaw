@@ -1,1 +1,4 @@
 .idea
+events
+yarn.lock
+node_modules
