@@ -11,18 +11,10 @@ var (
 	ErrUserAlreadyRegistered = errors.New("user already registered")
 )
 
-const UserRegisteredEventName = "UserRegistered"
-
 type Register struct {
 	Name     string
 	Email    string
 	Password string
-}
-
-type UserRegistered struct {
-	Name         string `json:"name"`
-	Email        string `json:"email"`
-	PasswordHash string `json:"password_hash"`
 }
 
 type RegisterHandler struct {
@@ -60,7 +52,7 @@ func (h RegisterHandler) Execute(cmd Register) error {
 
 func (h RegisterHandler) allRegistrations() ([]UserRegistered, error) {
 	cur, err := h.EventsReader.ByName(UserRegisteredEventName)
-	if errors.Cause(err) == ErrNoMatchesByName {
+	if errors.Cause(err) == ErrNoEventsByName {
 		return []UserRegistered{}, nil
 	}
 

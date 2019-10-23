@@ -3,8 +3,16 @@ package register
 import "github.com/pkg/errors"
 
 var (
-	ErrNoMatchesByName = errors.New("no matches by name")
+	ErrNoEventsByName = errors.New("no events found by name")
 )
+
+const UserRegisteredEventName = "UserRegistered"
+
+type UserRegistered struct {
+	Name         string `json:"name"`
+	Email        string `json:"email"`
+	PasswordHash string `json:"password_hash"`
+}
 
 type publisher interface {
 	Publish(eventName string, event interface{}) error
